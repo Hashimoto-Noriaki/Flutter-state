@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print('MyHomePageStateをビルド');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -49,21 +50,54 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            ElevatedButton(onPressed: () {
-              _incrementCounter();
-            },
-              child: const Text('カウント')
-            ),
+            const WidgetA(),
+            WidgetB(_counter),
+            WidgetC(_incrementCounter),
           ],
         ),
       ),
+    );
+  }
+}
+
+class WidgetA extends StatelessWidget {
+  const WidgetA({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    print('WidgetAをビルド');
+    return const Text(
+      'You have pushed the button this many times:',
+    );
+  }
+}
+
+class WidgetB extends StatelessWidget {
+  const WidgetB(this.counter,{Key? key}):super(key: key);
+  final int counter;
+
+  @override
+  Widget build(BuildContext context) {
+    print('WidgetBをビルド');
+    return Text(
+'$counter',
+      style: Theme.of(context).textTheme.headlineMedium,
+    );
+  }
+}
+
+class WidgetC extends StatelessWidget {
+  const WidgetC(this.increment,{super.key});
+  final Function increment;
+
+  @override
+  Widget build(BuildContext context) {
+    print('WidgetCをビルド');
+    return ElevatedButton(
+      onPressed: () {
+        increment();
+      },
+      child: const Text('カウント')
     );
   }
 }
